@@ -2,7 +2,7 @@
 ## or get the cached one if it's already calculated. If the matrix is changed, 
 ## then the inverse matrix should be calculated again.
 
-## Make a matrix, for example:
+## Making a matrix, for example:
 ## m = rbind(c(1, -1/4), c(-1/4, 1))  
 ## m2 = makeCacheMatrix(m)
 
@@ -18,7 +18,12 @@ makeCacheMatrix <- function(x = matrix()) {
   list (set = set, get = get, setinv = setinv, getinv = getinv)
 }
 
-## Calculate the inverse of a matrix or get the cached inverse:
+## Calculating the inverse of a matrix or get the cached inverse.
+## For example:
+## cachesolve(m2) calculates the inverse matrix, and
+## if you use it again, the cached matrix would be returned.
+## However, if the matrix is changed using m2$set(new_matrix), 
+## the inverse matrix needs to be calculated again
 
 cacheSolve <- function(x) {
   inv <- x$getinv()
