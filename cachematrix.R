@@ -1,15 +1,33 @@
-## Put comments here that give an overall description of what your
-## functions do
+## makeCacheMatrix creates a matrix, and cacheSolve calculates its inverse
+## or get the cached one if it's already calculated. If the matrix is changed, 
+## then the inverse matrix should be calculated again.
 
-## Write a short comment describing this function
+## Make a matrix, for example:
+## m = rbind(c(1, -1/4), c(-1/4, 1))  
+## m2 = makeCacheMatrix(m)
 
 makeCacheMatrix <- function(x = matrix()) {
-
+  inv <- NULL
+  set <- function(y) {
+    x <<- y
+    inv <<- NULL
+  }
+  get <- function() x
+  setinv <- function(i) inv <<- i
+  getinv <- function() inv
+  list (set = set, get = get, setinv = setinv, getinv = getinv)
 }
 
+## Calculate the inverse of a matrix or get the cached inverse:
 
-## Write a short comment describing this function
-
-cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+cacheSolve <- function(x) {
+  inv <- x$getinv()
+  if(!is.null(inv)) {
+    message("getting cached data")
+    return(inv)
+  }
+  data <- x$get()
+  inv <- solve(data)
+  x$setinv(inv)
+  inv
 }
